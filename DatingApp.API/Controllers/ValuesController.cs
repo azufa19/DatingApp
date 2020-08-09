@@ -7,8 +7,9 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-namespace DatinApp.API.Controllers
+namespace DatingApp.API.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class ValuesController: ControllerBase
@@ -19,8 +20,8 @@ namespace DatinApp.API.Controllers
             _context = context;
         }
 
-        // GET api/values
-       [AllowAnonymous]
+     // GET api/values
+      // [AllowAnonymous]
         [HttpGet]
         public async Task<IActionResult> GetValues()
         {

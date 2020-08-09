@@ -12,8 +12,11 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
-namespace DatinApp.API
+namespace DatingApp.API
 {
     public class Startup
     {
@@ -35,6 +38,19 @@ namespace DatinApp.API
             });
             services.AddControllers(); 
             services.AddCors();
+            services.AddScoped<IAuthRepository,AuthRepository>();
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(options => 
+                {
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuerSigningKey = true,
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII
+                            .GetBytes(Configuration.GetSection("AppSettings:Token").Value)),
+                        ValidateIssuer = false,
+                        ValidateAudience = false
+                    };
+                });
             //ConfigureServices(services);
            
         }
@@ -52,8 +68,11 @@ namespace DatinApp.API
             app.UseRouting();
            
            // app.UseMvc();
+            app.UseAuthentication(); 
             app.UseAuthorization();
+ 
             app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader() ) ;
+          
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
