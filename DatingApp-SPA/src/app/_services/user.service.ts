@@ -1,3 +1,4 @@
+import { Photo } from 'src/app/_models/Photo';
 import { User } from './../_models/User';
 import { environment } from './../../environments/environment';
 import { Injectable } from '@angular/core';
@@ -16,7 +17,6 @@ import { Observable } from 'rxjs';
 })
 export class UserService {
   baseUrl = environment.apiUrl ;
-
   constructor(private http: HttpClient) {}
 
   
@@ -32,4 +32,11 @@ export class UserService {
     return this.http.put(this.baseUrl + 'users/' + id, user);
   }
 
+  setMainPhoto(userId: number, id: number) {
+    return this.http.post(this.baseUrl + 'users/' + userId + '/photos/' + id + '/setMain', {});
+  }
+
+  deletePhoto(userId: number, id: number) {
+    return this.http.delete(this.baseUrl + 'users/' + userId + '/photos/' + id);
+  }
 }

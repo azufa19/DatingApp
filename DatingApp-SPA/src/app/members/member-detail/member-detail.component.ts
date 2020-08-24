@@ -12,7 +12,7 @@ import { NgxGalleryOptions, NgxGalleryImage, NgxGalleryAnimation } from 'ngx-gal
 })
 export class MemberDetailComponent implements OnInit {
   user: User;
-   galleryOptions: NgxGalleryOptions[];
+  galleryOptions: NgxGalleryOptions[];
   galleryImages: NgxGalleryImage[];
 
   constructor(
@@ -27,30 +27,15 @@ export class MemberDetailComponent implements OnInit {
  });
  this.galleryOptions = [
   {
-      width: '600px',
-      height: '400px',
-      thumbnailsColumns: 4,
-      imageAnimation: NgxGalleryAnimation.Slide
-  },
-  // max-width 800
-  {
-      breakpoint: 800,
-      width: '100%',
-      height: '600px',
-      imagePercent: 80,
-      thumbnailsPercent: 20,
-      thumbnailsMargin: 20,
-      thumbnailMargin: 20
-  },
-  // max-width 400
-  {
-      breakpoint: 400,
-      preview: false
+    width: '500px',
+    height: '500px',
+    imagePercent: 100,
+    thumbnailsColumns: 4,
+    imageAnimation: NgxGalleryAnimation.Slide,
+    preview: false
   }
 ];
-
-  this.galleryImages = this.getImages();
-
+ this.galleryImages = this.getImages();
 }
 
 //   loadUser() {
@@ -65,7 +50,7 @@ export class MemberDetailComponent implements OnInit {
 getImages() {
   const imageUrls = [];
   for (const photo of this.user.photos) {
-    imageUrls.push({
+     imageUrls.push({
       small: photo.url,
       medium: photo.url,
       big: photo.url,
